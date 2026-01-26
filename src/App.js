@@ -27,7 +27,8 @@ function App() {
         left: "50%",
         transform: "translateX(-50%)",
         fontSize: "32px",
-        opacity: 0.9
+        opacity: 0.6,
+        color:"red"
       }}>
         VIPS-TC
       </div>
@@ -40,7 +41,7 @@ function App() {
       {/* Greeting lower center */}
       <div style={{
         position: "absolute",
-        bottom: 120,
+        bottom: 150,
         left: "50%",
         transform: "translateX(-50%)",
       }}>
@@ -53,9 +54,9 @@ function App() {
         bottom: 30,
         left: 30,
         fontSize: "18px",
-        opacity: 0.75
+        opacity: 0.6
       }}>
-        Supervised by : Dr. Safina Shokeen & Mr. Anil Tondon
+        Supervised by : Dr. Safina Shokeen & Mr. Anil Tondon heheh
       </div>
 
       {/* Bottom-right credits */}
@@ -64,7 +65,7 @@ function App() {
         bottom: 30,
         right: 30,
         fontSize: "18px",
-        opacity: 0.75,
+        opacity: 0.6,
         textAlign: "right"
       }}>
         Project by : Pranay Vohra , Nandini Y & Aishna Jain
