@@ -1,0 +1,88 @@
+:root {
+  --weather-lg: 62px;
+  --weather-md: 22px;
+  --weather-sm: 17px;
+  --weather-xs: 15px;
+  --weather-opacity: 0.85;
+}
+
+.weather-block {
+  position: absolute;
+  right: 60px;
+  top: 60px;
+  color: white;
+  text-align: right;
+  opacity: var(--weather-opacity);
+  font-family: "Inter", "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+.current-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.current-temp {
+  font-size: var(--weather-lg);
+}
+
+.current-icon {
+  font-size: var(--weather-lg);
+  line-height: 1;
+}
+
+.current-desc {
+  font-size: var(--weather-md);
+  opacity: 0.85;
+  margin-top: 4px;
+}
+
+.current-feels {
+  font-size: var(--weather-sm);
+  opacity: 0.75;
+  margin-bottom: 18px;
+}
+
+.forecast-row {
+  display: flex;
+  gap: 26px;
+  justify-content: flex-end;
+}
+
+.forecast-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fc-time {
+  font-size: var(--weather-xs);
+  opacity: 0.75;
+}
+
+.fc-icon {
+  font-size: 32px;
+  line-height: 1;
+  margin: 4px 0;
+}
+
+.fc-temp {
+  font-size: var(--weather-xs);
+  opacity: 0.80;
+}
+
+.pulse {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .65; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+.weather-status {
+  opacity: 0.75;
+  font-size: 15px;
+}

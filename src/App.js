@@ -1,6 +1,7 @@
 import Clock from "./Clock";
-import Weather from "./Weather";
+import WeatherEnhanced from "./Weather_Enhanced";
 import Greeting from "./Greeting";
+import GeminiVoice from "./GeminiVoice";
 
 function App() {
   return (
@@ -28,42 +29,64 @@ function App() {
         transform: "translateX(-50%)",
         fontSize: "32px",
         opacity: 0.6,
-        color:"red"
+        color: "red"
       }}>
         VIPS-TC
       </div>
 
-      {/* Top-right weather */}
-      <div style={{ position: "absolute", top: 30, right: 30 }}>
-        <Weather city="New Delhi" />
+      {/* Top-right weather - Enhanced MagicMirror-style */}
+      <div
+        style={{
+          position: "absolute",
+          top: "30px",
+          right: "30px",
+        }}
+      >
+        <WeatherEnhanced city="New Delhi" />
+      </div>
+
+      {/* GEMINI VOICE SECTION */}
+      <div style={{
+        position: "absolute",
+        bottom: "150px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        textAlign: "center",
+        width: "300px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px"
+      }}>
+        <GeminiVoice />
       </div>
 
       {/* Greeting lower center */}
       <div style={{
         position: "absolute",
-        bottom: 150,
+        bottom: "90px",
         left: "50%",
         transform: "translateX(-50%)",
+        fontSize: "36px"
       }}>
         <Greeting />
       </div>
 
-      {/* Bottom-left supervisors */}
-      <div style={{
-        position: "absolute",
-        bottom: 30,
-        left: 30,
-        fontSize: "18px",
-        opacity: 0.6
-      }}>
-        Supervised by : Dr. Safina Shokeen & Mr. Anil Tondon heheh
-      </div>
-
-      {/* Bottom-right credits */}
+      {/* Bottom-right supervisors */}
       <div style={{
         position: "absolute",
         bottom: 30,
         right: 30,
+        fontSize: "18px",
+        opacity: 0.6
+      }}>
+        Supervised by : Dr. Safina Shokeen & Mr. Anil Tondon
+      </div>
+
+      {/* Bottom-left credits */}
+      <div style={{
+        position: "absolute",
+        bottom: 30,
+        left: 30,
         fontSize: "18px",
         opacity: 0.6,
         textAlign: "right"

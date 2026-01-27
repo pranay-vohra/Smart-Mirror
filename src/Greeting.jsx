@@ -20,35 +20,55 @@ export default function Greeting() {
     "Success is a habit"
   ];
 
-  const [index, setIndex] = useState(0);
+  const [affirmIndex, setAffirmIndex] = useState(0);
+  const [error, setError] = useState(null);
 
-  const getTimeGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour >= 12 && hour < 17) return "Good afternoon";
-    if (hour >= 17 && hour < 21) return "Good evening";
-    if (hour >= 21 || hour < 5) return "Good night";
-    return "Good morning";
+  const getAffirmationSafe = (idx) => {
+    try {
+      if (!affirmations.length) throw new Error("No affirmations");
+      return affirmations[idx] || affirmations[0];
+    } catch (e) {
+      setError("Affirmation unavailable");
+      return "Stay positive";
+    }
   };
 
   useEffect(() => {
-    // Always start with correct time-based greeting
-    setIndex(affirmations.indexOf(getTimeGreeting()));
+    try {
+      const interval = setInterval(() => {
+        setAffirmIndex((prev) => {
+          const next = (prev + 1) % affirmations.length;
+          return next;
+        });
+      }, 10 * 60 * 1000); // 10 min
 
-    const interval = setInterval(() => {
-      setIndex(prev => (prev + 1) % affirmations.length);
-    }, 30 * 60 * 1000); // 30 min
-
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    } catch (e) {
+      setError("Greeting error");
+    }
   }, []);
+
+  if (error) {
+    return (
+      <div style={{
+        opacity: 0.7,
+        fontSize: "24px",
+        textAlign: "center",
+        fontStyle: "italic"
+      }}>
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div style={{
-      fontSize: "42px",
+      fontSize: "30px",
       fontWeight: 300,
       opacity: 0.85,
       textAlign: "center"
     }}>
-      {affirmations[index]}
+      {getAffirmationSafe(affirmIndex)}
     </div>
   );
 }
