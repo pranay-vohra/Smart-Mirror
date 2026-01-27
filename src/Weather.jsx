@@ -4,73 +4,150 @@ import { useEffect, useState } from "react";
 export default function Weather() {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const API_KEY = "d32937130d459455270148237dab6cfc"; // replace with your key
+  const API_KEY = "d32937130d459455270148237dab6cfc";
   const CITY = "Delhi";
 
+  const iconMap = {
+    Thunderstorm: "⛈",
+    Drizzle: "🌦",
+    Rain: "🌧",
+    Snow: "🌨",
+    Mist: "🌫",
+    Smoke: "🌫",
+    Haze: "🌫",
+    Dust: "🌫",
+    Fog: "🌫",
+    Sand: "🌫",
+    Ash: "🌫",
+    Squall: "💨",
+    Tornado: "🌪",
+    Clear: "☀️",
+    Clouds: "☁️",
+  };
+
   useEffect(() => {
-    fetchWeather();
-    fetchForecast();
-    const interval = setInterval(() => {
+    const load = () => {
       fetchWeather();
       fetchForecast();
-    }, 10 * 60 * 1000); // refresh every 10 min
+    };
+    load();
+
+    const interval = setInterval(() => {
+      load();
+    }, 10 * 60 * 1000); // retry every 10 mins
 
     return () => clearInterval(interval);
   }, []);
 
   const fetchWeather = async () => {
-    const res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`
-    );
-    setWeather(res.data);
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`,
+        { timeout: 6000 }
+      );
+      setWeather(res.data);
+      setError(null);
+      setLoading(false);
+    } catch (e) {
+      console.warn("Weather fetch failed:", e);
+      setError("⚠ Weather unavailable — retrying...");
+      setLoading(false);
+    }
   };
 
   const fetchForecast = async () => {
-    const res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&appid=${API_KEY}&units=metric`
-    );
-
-    // get next 3 days at 12:00pm
-    const daily = res.data.list.filter(item => item.dt_txt.includes("12:00:00")).slice(0, 3);
-    setForecast(daily);
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&appid=${API_KEY}&units=metric`,
+        { timeout: 6000 }
+      );
+      setForecast(res.data.list.slice(0, 3));
+      setError(null);
+    } catch (e) {
+      console.warn("Forecast fetch failed:", e);
+      setError("⚠ Forecast unavailable — retrying...");
+    }
   };
+
+  // === STATE HANDLING === //
+
+  if (loading) return null; // no flicker on startup
+
+  if (error && !weather) {
+    return (
+      <div style={{
+        position: "absolute",
+        right: "80px",
+        top: "120px",
+        color: "white",
+        opacity: 0.85,
+        textAlign: "center",
+      }}>
+        {error}
+      </div>
+    );
+  }
 
   if (!weather) return null;
 
+  const icon = iconMap[weather.weather[0].main] || "☁️";
+
   return (
-    <div style={{ textAlign: "right" }}>
-      <div style={{ fontSize: "48px", fontWeight: 300 }}>
-        {Math.round(weather.main.temp)}°C
+    <div style={{
+      position: "absolute",
+      right: "35px",
+      top: "10px",
+      textAlign: "center",
+      opacity: 0.85,
+      fontWeight: 300,
+      transform: "scale(0.8)",
+      transformOrigin: "top right"
+    }}>
+
+      {/* CURRENT */}
+      <div style={{ fontSize: "48px" }}>{icon}</div>
+      <div style={{ fontSize: "68px" }}>{Math.round(weather.main.temp)}°C</div>
+
+      <div style={{ fontSize: "20px", marginTop: "6px" }}>
+        {weather.weather[0].main}
       </div>
 
-      <div style={{ fontSize: "20px", opacity: 0.8 }}>
-        New Delhi
+      <div style={{ fontSize: "18px", marginTop: "4px", opacity: 0.8 }}>
+        Feels like {Math.round(weather.main.feels_like)}°C
       </div>
 
-      <div style={{ fontSize: "14px", opacity: 0.6, marginTop: "4px" }}>
-        {weather.weather[0].description}<br/>
-        Humidity: {weather.main.humidity}%<br/>
-        Wind: {weather.wind.speed} km/h
-      </div>
-
-      {/* 3-day forecast */}
+      {/* FORECAST GRID */}
       <div style={{
         display: "flex",
         gap: "28px",
-        marginTop: "20px",
-        fontSize: "14px",
-        opacity: 0.7,
-        justifyContent: "flex-end"
+        marginTop: "28px",
+        justifyContent: "center"
       }}>
-        {forecast.map((day, idx) => (
+        {forecast.map((item, idx) => (
           <div key={idx} style={{ textAlign: "center" }}>
-            {new Date(day.dt * 1000).toLocaleDateString(undefined, { weekday: "short" })}<br/>
-            {day.weather[0].main}<br/>
-            {Math.round(day.main.temp)}°C
+            <div style={{ fontSize: "32px" }}>
+              {iconMap[item.weather[0].main] || "☁️"}
+            </div>
+            <div style={{ fontSize: "16px", marginTop: "2px" }}>
+              {new Date(item.dt * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true })}
+            </div>
+            <div style={{ fontSize: "16px", marginTop: "2px" }}>
+              {Math.round(item.main.temp)}°C
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Show error but do NOT break visuals */}
+      {error && (
+        <div style={{ fontSize: 14, marginTop: 8, opacity: 0.7 }}>
+          {error}
+        </div>
+      )}
+
     </div>
   );
 }

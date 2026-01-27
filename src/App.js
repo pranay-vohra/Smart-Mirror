@@ -34,36 +34,46 @@ function App() {
       </div>
 
       {/* Top-right weather */}
-      <div style={{ position: "absolute", top: 30, right: 30 }}>
+      <div
+        style={{
+          position: "absolute",
+          top: "5px",
+          right: "2px",
+          transform: "scale(0.70)",
+          transformOrigin: "top right",
+        }}
+      >
         <Weather city="New Delhi" />
       </div>
+
 
       {/* Greeting lower center */}
       <div style={{
         position: "absolute",
-        bottom: 150,
+        bottom: "90px",
         left: "50%",
         transform: "translateX(-50%)",
+        fontSize: "36px"
       }}>
         <Greeting />
       </div>
 
-      {/* Bottom-left supervisors */}
-      <div style={{
-        position: "absolute",
-        bottom: 30,
-        left: 30,
-        fontSize: "18px",
-        opacity: 0.6
-      }}>
-        Supervised by : Dr. Safina Shokeen & Mr. Anil Tondon heheh
-      </div>
-
-      {/* Bottom-right credits */}
+      {/* Bottom-right supervisors */}
       <div style={{
         position: "absolute",
         bottom: 30,
         right: 30,
+        fontSize: "18px",
+        opacity: 0.6
+      }}>
+        Supervised by : Dr. Safina Shokeen & Mr. Anil Tondon
+      </div>
+
+      {/* Bottom-left credits */}
+      <div style={{
+        position: "absolute",
+        bottom: 30,
+        left: 30,
         fontSize: "18px",
         opacity: 0.6,
         textAlign: "right"
