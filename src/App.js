@@ -1,6 +1,7 @@
 import Clock from "./Clock";
 import Weather from "./Weather";
 import Greeting from "./Greeting";
+import GeminiVoice from "./GeminiVoice";
 
 function App() {
   return (
@@ -46,6 +47,20 @@ function App() {
         <Weather city="New Delhi" />
       </div>
 
+      {/* GEMINI VOICE SECTION */}
+      <div style={{
+        position: "absolute",
+        bottom: "150px",       // adjust freely
+        left: "50%",
+        transform: "translateX(-50%)",
+        textAlign: "center",
+        width: "300px",     // so text doesn’t stretch
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px"
+      }}>
+        <GeminiVoice />
+      </div>
 
       {/* Greeting lower center */}
       <div style={{
