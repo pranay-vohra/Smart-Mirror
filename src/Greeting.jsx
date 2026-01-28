@@ -20,7 +20,9 @@ export default function Greeting() {
     "Success is a habit"
   ];
 
-  const [affirmIndex, setAffirmIndex] = useState(0);
+  const [affirmIndex, setAffirmIndex] = useState(() =>
+    Math.floor(Math.random() * affirmations.length) // random start
+  );
   const [error, setError] = useState(null);
 
   const getAffirmationSafe = (idx) => {
@@ -37,10 +39,13 @@ export default function Greeting() {
     try {
       const interval = setInterval(() => {
         setAffirmIndex((prev) => {
-          const next = (prev + 1) % affirmations.length;
-          return next;
+          let r;
+          do {
+            r = Math.floor(Math.random() * affirmations.length);
+          } while (r === prev); // prevent repeat
+          return r;
         });
-      }, 10 * 60 * 1000); // 10 min
+      }, 10 * 60 * 1000); // every 10 minutes
 
       return () => clearInterval(interval);
     } catch (e) {

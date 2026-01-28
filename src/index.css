@@ -1,10 +1,6 @@
-/*:root {
-  --mirror-opacity: 0.85;
-}
+@import "weather-icons/css/weather-icons.css";
+@import url("https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css");
 
-* {
-  opacity: var(--mirror-opacity);
-}*/
 * {
   margin: 0;
   padding: 0;
@@ -13,14 +9,6 @@
   color: white;
 }
 
-/* Mirror background */
 body {
-  background: black;
-  font-weight: 300;
-  letter-spacing: 0.5px;
-}
-
-/* Make code components neutral */
-code {
-  font-family: 'Poppins', sans-serif;
+  background:black;
 }

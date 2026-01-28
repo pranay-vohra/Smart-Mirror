@@ -35,7 +35,7 @@ function App() {
       </div>
 
       {/* Top-right weather */}
-      <div
+      {/*<div
         style={{
           position: "absolute",
           top: "5px",
@@ -45,7 +45,9 @@ function App() {
         }}
       >
         <Weather city="New Delhi" />
-      </div>
+      </div>*/}
+      
+      <Weather />
 
       {/* GEMINI VOICE SECTION */}
       <div style={{
