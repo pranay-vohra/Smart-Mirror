@@ -12,7 +12,9 @@ export default function Weather() {
   const ACTIVE_LAYOUT = "A"; // "A" | "B" | "C"
 
   const API_KEY = process.env.REACT_APP_WEATHER_KEY;
-  const CITY = "Delhi";
+  const LAT = process.env.REACT_APP_LAT;
+  const LON = process.env.REACT_APP_LON;
+
 
   useEffect(() => {
     fetchAll();
@@ -24,11 +26,13 @@ export default function Weather() {
     try {
       setLoading(true);
       const w = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${LAT}&lon=${LON}&appid=${API_KEY}&units=metric`
       );
+
       const f = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${LAT}&lon=${LON}&appid=${API_KEY}&units=metric`
       );
+
 
       setWeather(w.data);
       setForecast(f.data?.list?.slice(0, 3) || []);
@@ -40,6 +44,8 @@ export default function Weather() {
     }
   };
   console.log({weather, forecast, error, API_KEY});
+  console.log({ LAT, LON });
+
 
   // loading / error guard
   if (loading) return null;
