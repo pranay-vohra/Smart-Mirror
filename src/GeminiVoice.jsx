@@ -53,7 +53,6 @@ export default function GeminiVoice() {
 
     recognition.onresult = async (event) => {
       const lastResult = event.results[event.results.length - 1];
-
       if (!lastResult.isFinal) return;
 
       const transcript = lastResult[0].transcript
@@ -103,22 +102,34 @@ export default function GeminiVoice() {
     };
   }, []);
 
-  // 🔥 Flexible wake detection
+  // 🔥 Expanded Wake Word List 
   const isWakeWord = (text) => {
-    return (
-      text.includes("mirror") ||
-      text.includes("mera") ||
-      text.includes("meera")
-    );
+    const wakeWords = [
+      "mirror",
+      "hello mirror",
+      "hey mirror",
+      "hi mirror",
+      "hello",
+      "hey",
+      "hi",
+      "mera",
+      "meera",
+      "miraj",
+      "miror"
+    ];
+
+    return wakeWords.some(word => text.includes(word));
   };
 
   const extractCommand = (text) => {
     return text
-      .replace(/mirror|mera|meera/g, "")
+      .replace(
+        /hello mirror|hey mirror|hi mirror|mirror|hello|hey|hi|mera|meera|miraj|miror/g,
+        ""
+      )
       .trim();
   };
 
-  // 🔊 FIXED SPEAK FUNCTION
   const speak = (text) => {
     isSpeaking.current = true;
 
