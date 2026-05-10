@@ -1,88 +1,172 @@
-:root {
-  --weather-lg: 62px;
-  --weather-md: 22px;
-  --weather-sm: 17px;
-  --weather-xs: 15px;
-  --weather-opacity: 0.85;
-}
-
-.weather-block {
+/* === ROOT POSITIONING / ANCHOR === */
+.weather-root {
   position: absolute;
-  right: 60px;
-  top: 60px;
+  top: 30px;
+  right: 40px;
   color: white;
-  text-align: right;
-  opacity: var(--weather-opacity);
-  font-family: "Inter", "Roboto", sans-serif;
+  text-align: center;
   font-weight: 300;
+  font-family: inherit;
+  opacity: 0.88;
+  transform-origin: top right;
+  pointer-events: none; /* mirrors should not be interactive */
+  transform: scale(0.8)
 }
 
-.current-row {
+/* ===== LAYOUT A (Classic MM Compact) ===== */
+.mm-temp-row {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 8px;
 }
 
-.current-temp {
-  font-size: var(--weather-lg);
+.mm-icon {
+  font-size: 36px;
+  line-height: 1;
+  opacity: 0.95;
 }
 
-.current-icon {
-  font-size: var(--weather-lg);
+.mm-temp {
+  font-size: 36px;
   line-height: 1;
 }
 
-.current-desc {
-  font-size: var(--weather-md);
+.mm-main-text {
+  font-size: 24px;
+  margin-top: 6px;
   opacity: 0.85;
-  margin-top: 4px;
 }
 
-.current-feels {
-  font-size: var(--weather-sm);
-  opacity: 0.75;
-  margin-bottom: 18px;
+.mm-feels {
+  font-size: 16px;
+  opacity: 0.7;
+  margin-top: 2px;
 }
 
-.forecast-row {
+.mm-forecast-row {
   display: flex;
-  gap: 26px;
-  justify-content: flex-end;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 18px;
+  opacity: 0.78;
 }
 
-.forecast-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.mm-forecast-col {
+  font-size: 16px;
+  opacity: 0.78;
 }
 
-.fc-time {
-  font-size: var(--weather-xs);
+.mm-f-icon {
+  font-size: 30px;
   opacity: 0.75;
+  line-height: 1.1;
+  filter: brightness(0.92);
+  margin-bottom: 2px;
 }
 
-.fc-icon {
-  font-size: 32px;
-  line-height: 1;
-  margin: 4px 0;
+.mm-f-time {
+  font-size: 14px;
+  opacity: 0.8;
 }
 
-.fc-temp {
-  font-size: var(--weather-xs);
-  opacity: 0.80;
-}
-
-.pulse {
-  animation: pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: .65; transform: scale(0.96); }
-  50% { opacity: 1; transform: scale(1.06); }
-}
-
-.weather-status {
-  opacity: 0.75;
+.mm-f-temp {
   font-size: 15px;
+  opacity: 0.85;
+  margin-top: 2px;
 }
+
+
+/* ===== LAYOUT B (Smaller, tighter) ===== */
+.mm-icon-sm {
+  font-size: 38px;
+  opacity: 0.9;
+}
+
+.mm-main-text-sm {
+  font-size: 19px;
+  margin-top: 4px;
+  opacity: 0.85;
+}
+
+.mm-feels-sm {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.mm-forecast-row-sm {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 14px;
+  opacity: 0.78;
+}
+
+.mm-col-sm {
+  font-size: 15px;
+  opacity: 0.75;
+}
+
+.mm-f-icon-sm {
+  font-size: 26px;
+  opacity: 0.75;
+  filter: brightness(0.92);
+  line-height: 1;
+}
+
+.mm-time-sm {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.mm-temp-sm {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+
+/* ===== LAYOUT C (Minimal / inline) ===== */
+.mm-temp-c {
+  font-size: 62px;
+  opacity: 0.9;
+}
+
+.mm-main-c {
+  font-size: 18px;
+  opacity: 0.83;
+  margin-top: 3px;
+}
+
+.mm-feels-c {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.mm-forecast-c {
+  margin-top: 8px;
+  font-size: 15px;
+  opacity: 0.75;
+}
+
+.mm-f-icon-c {
+  font-size: 22px;
+  opacity: 0.78;
+  filter: brightness(0.9);
+  line-height: 1;
+}
+
+
+/* === MagicMirror-ish Dim for Forecast (MM Signature) === */
+.mm-forecast-row > *, 
+.mm-forecast-row-sm > *,
+.mm-forecast-c > * {
+  transition: opacity 0.35s linear;
+}
+
+/*}.weather-root {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  z-index: 99;
+}*/

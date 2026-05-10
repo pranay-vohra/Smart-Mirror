@@ -34,6 +34,8 @@ function App() {
         VIPS-TC
       </div>
 
+      {/* Top-right weather */}
+      {/*<div
       {/* Top-right weather - Enhanced MagicMirror-style */}
       <div
         style={{
@@ -42,6 +44,10 @@ function App() {
           right: "30px",
         }}
       >
+        <Weather city="New Delhi" />
+      </div>*/}
+      
+      <Weather />
         <WeatherEnhanced city="New Delhi" />
       </div>
 
