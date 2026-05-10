@@ -1,5 +1,5 @@
 import Clock from "./Clock";
-import Weather from "./Weather";
+import WeatherEnhanced from "./Weather_Enhanced";
 import Greeting from "./Greeting";
 import GeminiVoice from "./GeminiVoice";
 
@@ -29,34 +29,36 @@ function App() {
         transform: "translateX(-50%)",
         fontSize: "32px",
         opacity: 0.6,
-        color:"red"
+        color: "red"
       }}>
         VIPS-TC
       </div>
 
       {/* Top-right weather */}
       {/*<div
+      {/* Top-right weather - Enhanced MagicMirror-style */}
+      <div
         style={{
           position: "absolute",
-          top: "5px",
-          right: "2px",
-          transform: "scale(0.70)",
-          transformOrigin: "top right",
+          top: "30px",
+          right: "30px",
         }}
       >
         <Weather city="New Delhi" />
       </div>*/}
       
       <Weather />
+        <WeatherEnhanced city="New Delhi" />
+      </div>
 
       {/* GEMINI VOICE SECTION */}
       <div style={{
         position: "absolute",
-        bottom: "150px",       // adjust freely
+        bottom: "150px",
         left: "50%",
         transform: "translateX(-50%)",
         textAlign: "center",
-        width: "300px",     // so text doesn’t stretch
+        width: "300px",
         display: "flex",
         flexDirection: "column",
         gap: "10px"

@@ -1,0 +1,1 @@
+A modern Smart Mirror interface built using React, featuring real-time weather, affirmations, clock, and Gemini AI integration. Designed for a seamless wall-mounted display experience and optimized for Raspberry Pi / PC deployments.
